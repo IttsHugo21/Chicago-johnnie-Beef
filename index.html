@@ -1,385 +1,375 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  MapPin, 
-  Phone, 
-  Clock, 
-  Star, 
-  Facebook, 
-  Menu as MenuIcon, 
-  X, 
-  Info, 
-  ShoppingBag, 
-  Ban, 
-  Banknote,
-  Cookie
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnnie's Beef | El Sabor de Chicago</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+        
+        :root {
+            scroll-behavior: smooth;
+        }
 
-// ==========================================
-// COMPONENTES DE PÁGINAS LEGALES
-// ==========================================
+        body {
+            font-family: 'Inter', sans-serif;
+        }
 
-const AvisoLegal = () => (
-  <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-gray-800">
-    <h1 className="text-3xl font-bold mb-8 text-red-700 border-b pb-4">Aviso Legal</h1>
-    <div className="space-y-6 text-sm leading-relaxed">
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">1. Información General</h2>
-        <p>En cumplimiento de lo dispuesto en la normativa vigente sobre Servicios de la Sociedad de la Información y de Comercio Electrónico, se informa de que el titular de este sitio web es <strong>Johnnie's Beef</strong>, con domicilio en 7500 W North Ave, Elmwood Park, IL 60707, Estados Unidos, y teléfono +1 708-452-6000.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">2. Condiciones de Uso</h2>
-        <p>El acceso y uso de este sitio web atribuye la condición de Usuario. El Usuario se compromete a utilizar el sitio web, sus servicios y contenidos sin contravenir la legislación vigente, la buena fe y el orden público.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">3. Propiedad Intelectual</h2>
-        <p>Todos los contenidos (textos, fotos, logos) son propiedad de Johnnie's Beef. Queda prohibida su reproducción o distribución sin autorización previa.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">4. Exclusión de Responsabilidad</h2>
-        <p>La información sobre precios y productos es meramente orientativa. El establecimiento opera exclusivamente con efectivo ("Cash Only").</p>
-      </section>
-    </div>
-  </div>
-);
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
 
-const PoliticaPrivacidad = () => (
-  <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-gray-800">
-    <h1 className="text-3xl font-bold mb-8 text-red-700 border-b pb-4">Política de Privacidad</h1>
-    <div className="space-y-6 text-sm leading-relaxed">
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">1. Responsable</h2>
-        <p><strong>Johnnie's Beef</strong>, 7500 W North Ave, Elmwood Park, IL 60707, EE.UU.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">2. Finalidad</h2>
-        <p>Tratamos la información para gestionar consultas y mejorar la experiencia del usuario. No realizamos ventas ni cobros a través de esta plataforma web.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">3. Derechos</h2>
-        <p>Los usuarios pueden ejercer sus derechos de acceso, rectificación o supresión contactando directamente con el establecimiento.</p>
-      </section>
-    </div>
-  </div>
-);
+        .legal-view { display: none; }
+        .active-view { display: block; }
 
-const PoliticaCookies = () => (
-  <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-gray-800">
-    <h1 className="text-3xl font-bold mb-8 text-red-700 border-b pb-4">Política de Cookies</h1>
-    <div className="space-y-6 text-sm leading-relaxed">
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">1. Definición</h2>
-        <p>Las cookies son archivos que se descargan para almacenar y recuperar información sobre la navegación del usuario.</p>
-      </section>
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">2. Tipos utilizados</h2>
-        <ul className="list-disc pl-5 mt-2 space-y-2">
-          <li><strong>Técnicas:</strong> Necesarias para el funcionamiento del sitio (ej. banner de consentimiento).</li>
-          <li><strong>Analíticas:</strong> Para medir estadísticas de uso de forma anónima.</li>
-        </ul>
-      </section>
-    </div>
-  </div>
-);
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
-// ==========================================
-// COMPONENTE PRINCIPAL APP
-// ==========================================
+        .cookie-animate {
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
 
-export default function App() {
-  const [currentView, setCurrentView] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showCookieBanner, setShowCookieBanner] = useState(false);
+    <!-- NAVEGACIÓN -->
+    <nav class="fixed w-full z-50 bg-red-700 text-white shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 cursor-pointer group" onclick="showView('home')">
+                    <h1 class="text-2xl md:text-3xl font-black italic tracking-tighter">
+                        JOHNNIE'S <span class="text-yellow-400 group-hover:text-yellow-300 transition-colors">BEEF</span>
+                    </h1>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 font-extrabold text-sm uppercase tracking-widest">
+                    <a href="#home" onclick="showView('home')" class="hover:text-yellow-400 transition-colors">Inicio</a>
+                    <a href="#menu" onclick="showView('home')" class="hover:text-yellow-400 transition-colors">Carta</a>
+                    <a href="#info" onclick="showView('home')" class="hover:text-yellow-400 transition-colors">Ubicación</a>
+                    <a href="https://facebook.com" target="_blank" class="bg-yellow-400 text-red-800 p-2 rounded-full hover:scale-110 transition-transform">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
 
-  // Gestión de cookies y consentimiento
-  useEffect(() => {
-    const accepted = localStorage.getItem('johnnies_cookies_accepted');
-    if (!accepted) {
-      const timer = setTimeout(() => setShowCookieBanner(true), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, []);
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-yellow-400 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-red-800 border-t border-red-600 px-4 py-6 space-y-4 shadow-xl">
+            <a href="#home" onclick="closeMobileMenu(); showView('home')" class="block font-black uppercase">Inicio</a>
+            <a href="#menu" onclick="closeMobileMenu(); showView('home')" class="block font-black uppercase">Carta</a>
+            <a href="#info" onclick="closeMobileMenu(); showView('home')" class="block font-black uppercase">Ubicación</a>
+        </div>
+    </nav>
 
-  const handleAcceptCookies = () => {
-    localStorage.setItem('johnnies_cookies_accepted', 'true');
-    setShowCookieBanner(false);
-  };
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main id="main-content" class="pt-20">
+        
+        <!-- VISTA HOME -->
+        <div id="view-home" class="active-view">
+            <!-- HERO -->
+            <section id="home" class="hero-gradient h-[85vh] flex items-center justify-center text-center px-4">
+                <div class="max-w-4xl">
+                    <div class="inline-block bg-yellow-400 text-red-900 px-4 py-1 rounded-full font-black text-xs uppercase tracking-widest mb-6 shadow-lg">
+                        <i class="fas fa-star mr-2"></i> 4.6 (5,882 Reseñas)
+                    </div>
+                    <h2 class="text-5xl md:text-8xl font-black text-white mb-6 leading-none drop-shadow-2xl">
+                        EL REY DEL <br> <span class="text-yellow-400 italic">ITALIAN BEEF</span>
+                    </h2>
+                    <p class="text-lg md:text-2xl text-gray-100 mb-10 font-medium max-w-2xl mx-auto drop-shadow-md">
+                        Tradición desde Elmwood Park. Carne cortada fina, jugosa y auténtica.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#menu" class="bg-red-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-red-500 transition-all shadow-xl hover:-translate-y-1">EXPLORAR CARTA</a>
+                        <a href="#info" class="bg-white text-red-700 px-10 py-4 rounded-2xl font-black text-lg hover:bg-gray-100 transition-all shadow-xl hover:-translate-y-1">CÓMO LLEGAR</a>
+                    </div>
+                </div>
+            </section>
 
-  const navigateTo = (view) => {
-    setCurrentView(view);
-    setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Datos del Menú
-  const menuItems = [
-    { name: "Italian Beef Sandwich", desc: "Carne asada a fuego lento, cortada fina, en pan italiano con su propio jugo.", price: "$8.50" },
-    { name: "Combo Beef & Sausage", desc: "Italian Beef combinado con una salchicha italiana a la parrilla.", price: "$9.50" },
-    { name: "Hot Dog Estilo Chicago", desc: "Salchicha de ternera, mostaza, cebolla, relish verde, tomate y pimientos.", price: "$4.50" },
-    { name: "Italian Ice", desc: "Helado artesanal refrescante. Sabores de limón o sandía.", price: "$3.00" },
-    { name: "Papas Fritas (Fries)", desc: "Crujientes y doradas, servidas en bolsa de papel.", price: "$3.50" },
-    { name: "Batidos (Shakes)", desc: "Vainilla, Chocolate o Fresa.", price: "$4.00" }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans antialiased text-gray-900">
-      
-      {/* NAVEGACIÓN */}
-      <header className="bg-red-700 text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0 flex items-center cursor-pointer group" onClick={() => navigateTo('home')}>
-              <h1 className="text-3xl font-black tracking-tighter italic">
-                JOHNNIE'S <span className="text-yellow-400 group-hover:text-yellow-300 transition-colors">BEEF</span>
-              </h1>
+            <!-- ICONOS RÁPIDOS -->
+            <div class="bg-white border-b py-12">
+                <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="space-y-2 group">
+                        <div class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-money-bill-wave text-2xl"></i>
+                        </div>
+                        <h4 class="font-black text-sm uppercase tracking-tighter">Solo Efectivo</h4>
+                        <p class="text-xs text-gray-400">Cash Only</p>
+                    </div>
+                    <div class="space-y-2 group">
+                        <div class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-shopping-bag text-2xl"></i>
+                        </div>
+                        <h4 class="font-black text-sm uppercase tracking-tighter">Para Llevar</h4>
+                        <p class="text-xs text-gray-400">Take Away Only</p>
+                    </div>
+                    <div class="space-y-2 group">
+                        <div class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-clock text-2xl"></i>
+                        </div>
+                        <h4 class="font-black text-sm uppercase tracking-tighter">Cierre: 0:00</h4>
+                        <p class="text-xs text-gray-400">Abierto Diario</p>
+                    </div>
+                    <div class="space-y-2 group">
+                        <div class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-tags text-2xl"></i>
+                        </div>
+                        <h4 class="font-black text-sm uppercase tracking-tighter">10-20 $</h4>
+                        <p class="text-xs text-gray-400">Precio Medio</p>
+                    </div>
+                </div>
             </div>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <button onClick={() => navigateTo('home')} className={`hover:text-yellow-400 transition-colors font-bold uppercase text-sm ${currentView === 'home' ? 'text-yellow-400' : ''}`}>Inicio</button>
-              {currentView === 'home' && (
-                <>
-                  <a href="#menu" className="hover:text-yellow-400 transition-colors font-bold uppercase text-sm">Carta</a>
-                  <a href="#info" className="hover:text-yellow-400 transition-colors font-bold uppercase text-sm">Ubicación</a>
-                </>
-              )}
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="bg-white/10 p-2 rounded-full hover:bg-yellow-400 hover:text-red-800 transition-all">
-                <Facebook size={20} />
-              </a>
-            </nav>
+            <!-- CARTA -->
+            <section id="menu" class="py-24 bg-slate-50">
+                <div class="max-w-6xl mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-5xl font-black text-slate-900 mb-4 tracking-tighter">NUESTRA CARTA</h2>
+                        <div class="w-20 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 lg:gap-10">
+                        <!-- Item -->
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="text-2xl font-black text-slate-800 leading-tight">Italian Beef Sandwich</h3>
+                                    <span class="bg-yellow-100 text-red-800 font-black px-4 py-1 rounded-xl text-sm">$8.50</span>
+                                </div>
+                                <p class="text-slate-500 text-sm leading-relaxed">Nuestra especialidad legendaria. Carne de ternera asada a fuego lento, cortada extra fina y servida en pan italiano empapado en su propio jugo.</p>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="text-2xl font-black text-slate-800 leading-tight">Chicago Style Hot Dog</h3>
+                                    <span class="bg-yellow-100 text-red-800 font-black px-4 py-1 rounded-xl text-sm">$4.50</span>
+                                </div>
+                                <p class="text-slate-500 text-sm leading-relaxed">Al estilo puro Chicago: mostaza, cebolla, relish verde neón, tomate, pepinillo, pimientos sport y una pizca de sal de apio.</p>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="text-2xl font-black text-slate-800 leading-tight">Combo Beef & Sausage</h3>
+                                    <span class="bg-yellow-100 text-red-800 font-black px-4 py-1 rounded-xl text-sm">$9.50</span>
+                                </div>
+                                <p class="text-slate-500 text-sm leading-relaxed">Lo mejor de ambos mundos. Nuestro sándwich de Italian Beef con una salchicha italiana a la parrilla dentro.</p>
+                            </div>
+                        </div>
+                        <!-- Item -->
+                        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-slate-100 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <h3 class="text-2xl font-black text-slate-800 leading-tight">Italian Ice (Helado)</h3>
+                                    <span class="bg-yellow-100 text-red-800 font-black px-4 py-1 rounded-xl text-sm">$3.50</span>
+                                </div>
+                                <p class="text-slate-500 text-sm leading-relaxed">El postre perfecto. Helado granizado artesanal súper refrescante. Sabores clásicos: Limón o Sandía.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center mt-12 text-slate-400 italic text-sm italic font-medium uppercase tracking-widest">Nota: Todos los precios están sujetos a cambios.</p>
+                </div>
+            </section>
 
-            {/* Mobile Toggle */}
-            <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-yellow-400">
-                {isMenuOpen ? <X size={32} /> : <MenuIcon size={32} />}
-              </button>
-            </div>
-          </div>
+            <!-- UBICACIÓN -->
+            <section id="info" class="py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="bg-slate-900 rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+                        <div class="lg:w-1/2 p-12 lg:p-20 text-white">
+                            <h2 class="text-4xl font-black mb-10">DÓNDE ESTAMOS</h2>
+                            <div class="space-y-10">
+                                <div class="flex gap-6">
+                                    <div class="bg-red-600/20 p-4 rounded-2xl text-red-500 h-fit">
+                                        <i class="fas fa-map-marker-alt text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-xl mb-1 uppercase tracking-tight">Dirección Principal</p>
+                                        <p class="text-slate-400 leading-relaxed">7500 W North Ave, Elmwood Park, IL 60707, Estados Unidos</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-6">
+                                    <div class="bg-red-600/20 p-4 rounded-2xl text-red-500 h-fit">
+                                        <i class="fas fa-clock text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-xl mb-1 uppercase tracking-tight">Horario de Servicio</p>
+                                        <p class="text-slate-400 leading-relaxed">Abierto de 10:00 AM a 12:00 AM (Medianoche)</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-6">
+                                    <div class="bg-red-600/20 p-4 rounded-2xl text-red-500 h-fit">
+                                        <i class="fas fa-phone text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-xl mb-1 uppercase tracking-tight">Llámanos</p>
+                                        <p class="text-slate-400 leading-relaxed">+1 708-452-6000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 min-h-[400px] bg-slate-800 relative group overflow-hidden">
+                             <!-- Simulación de mapa con diseño -->
+                            <div class="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-87.813,41.908,13,0/600x600?access_token=pk.eyJ1IjoiY2hhdGdwdCIsImEiOiJjbGV4eGZicXQwMGF6M3RwZzJ6ZnV6ZzJ6In0.fake')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                            <div class="absolute inset-0 bg-slate-900/40 flex flex-col items-center justify-center p-8 text-center backdrop-blur-[2px]">
+                                <i class="fas fa-location-arrow text-red-500 text-6xl mb-6 animate-bounce"></i>
+                                <h4 class="text-white font-black text-3xl mb-4 leading-tight">UBICACIÓN EXACTA</h4>
+                                <a href="https://maps.google.com/?q=Johnnie's+Beef+7500+W+North+Ave" target="_blank" class="bg-white text-slate-900 px-8 py-3 rounded-full font-black text-sm uppercase hover:bg-yellow-400 transition-all">Abrir en Google Maps</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-red-800 border-t border-red-600 animate-fade-in">
-            <div className="px-4 py-6 space-y-4">
-              <button onClick={() => navigateTo('home')} className="block w-full text-left text-lg font-bold">INICIO</button>
-              <a href="#menu" onClick={() => setIsMenuOpen(false)} className="block text-lg font-bold">CARTA</a>
-              <a href="#info" onClick={() => setIsMenuOpen(false)} className="block text-lg font-bold">UBICACIÓN</a>
-              <div className="pt-4 border-t border-red-700">
-                <a href="https://facebook.com" className="flex items-center gap-2 text-yellow-400">
-                  <Facebook size={24} /> Síguenos en Facebook
-                </a>
-              </div>
+        <!-- VISTAS LEGALES (OCULTAS POR DEFECTO) -->
+        <div id="view-aviso-legal" class="legal-view max-w-4xl mx-auto py-20 px-4">
+            <h2 class="text-4xl font-black text-red-700 mb-8 border-b pb-4 uppercase italic">Aviso Legal</h2>
+            <div class="space-y-6 text-slate-600 text-sm leading-relaxed">
+                <p><strong>1. Identificación del Titular:</strong> El sitio web es propiedad de Johnnie's Beef, con domicilio en 7500 W North Ave, Elmwood Park, IL 60707, Estados Unidos.</p>
+                <p><strong>2. Uso del Sitio:</strong> El acceso y uso de este portal atribuye la condición de Usuario. El contenido aquí mostrado (precios, horarios) es informativo y está sujeto a cambios en el local físico.</p>
+                <p><strong>3. Propiedad Intelectual:</strong> Los textos, logotipos e imágenes son propiedad de Johnnie's Beef. Queda prohibida su reproducción sin consentimiento.</p>
             </div>
-          </div>
-        )}
-      </header>
+        </div>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <main className="flex-grow">
-        {currentView === 'home' && (
-          <>
-            {/* HERO */}
-            <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-black/60 z-10"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1627054234559-002f2a969df2?auto=format&fit=crop&q=80&w=1920" 
-                  alt="Johnnies Beef Hero" 
-                  className="w-full h-full object-cover scale-105"
-                />
-              </div>
-              <div className="relative z-20 text-center px-4">
-                <div className="mb-6 inline-block bg-yellow-400 text-red-900 px-4 py-1 rounded-full font-black text-sm uppercase tracking-widest animate-bounce">
-                  Best Italian Beef in Illinois
+        <div id="view-privacidad" class="legal-view max-w-4xl mx-auto py-20 px-4">
+            <h2 class="text-4xl font-black text-red-700 mb-8 border-b pb-4 uppercase italic">Política de Privacidad</h2>
+            <div class="space-y-6 text-slate-600 text-sm leading-relaxed">
+                <p><strong>Responsable:</strong> Johnnie's Beef.</p>
+                <p><strong>Finalidad:</strong> Esta web es puramente informativa. No recopilamos datos personales sensibles, formularios de registro ni procesamos pedidos online.</p>
+                <p><strong>Cookies:</strong> Ver política específica de cookies para el tratamiento de navegación anónima.</p>
+            </div>
+        </div>
+
+        <div id="view-cookies" class="legal-view max-w-4xl mx-auto py-20 px-4">
+            <h2 class="text-4xl font-black text-red-700 mb-8 border-b pb-4 uppercase italic">Política de Cookies</h2>
+            <div class="space-y-6 text-slate-600 text-sm leading-relaxed">
+                <p><strong>¿Qué son las cookies?</strong> Son pequeños archivos que se almacenan en su navegador para recordar preferencias técnicas.</p>
+                <p><strong>Uso:</strong> Utilizamos cookies técnicas (necesarias para la navegación) y analíticas (para entender cómo los usuarios usan la web de forma agregada).</p>
+                <p><strong>Gestión:</strong> Puede desactivarlas en la configuración de su navegador.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-500 py-16 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-white text-3xl font-black italic mb-6 tracking-tighter">JOHNNIE'S</h3>
+                    <p class="max-w-sm text-sm leading-relaxed">Sirviendo el mejor Italian Beef de Chicago desde hace décadas. Calidad, tradición y rapidez en cada bocado.</p>
                 </div>
-                <h2 className="text-6xl md:text-8xl font-black text-white mb-6 leading-none">
-                  SABOR <br/> <span className="text-yellow-400">LEGENDARIO</span>
-                </h2>
-                <p className="text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-medium">
-                  Desde Elmwood Park para el mundo. Tradición, rapidez y el mejor sabor de Chicago en cada bocado.
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-xs uppercase tracking-widest">Navegación</h4>
+                    <ul class="space-y-3 text-sm font-semibold">
+                        <li><button onclick="showView('home')" class="hover:text-white transition-colors">Inicio</button></li>
+                        <li><a href="#menu" onclick="showView('home')" class="hover:text-white transition-colors">Menú</a></li>
+                        <li><a href="https://facebook.com" target="_blank" class="hover:text-white transition-colors">Siguenos en Facebook</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-xs uppercase tracking-widest">Información Legal</h4>
+                    <ul class="space-y-3 text-sm font-semibold">
+                        <li><button onclick="showView('aviso-legal')" class="hover:text-white transition-colors">Aviso Legal</button></li>
+                        <li><button onclick="showView('privacidad')" class="hover:text-white transition-colors">Privacidad</button></li>
+                        <li><button onclick="showView('cookies')" class="hover:text-white transition-colors">Política de Cookies</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-slate-900 text-center text-[10px] uppercase tracking-widest font-bold">
+                © 2026 Johnnie's Beef. Desarrollado con pasión por el sabor.
+            </div>
+        </div>
+    </footer>
+
+    <!-- BANNER DE COOKIES (1ª CAPA) -->
+    <div id="cookie-banner" class="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md bg-white border border-slate-200 p-8 rounded-[2.5rem] shadow-2xl z-[100] cookie-animate hidden">
+        <div class="flex items-start gap-6">
+            <div class="bg-yellow-100 p-4 rounded-3xl text-yellow-600 shrink-0">
+                <i class="fas fa-cookie-bite text-2xl"></i>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-black text-slate-900 text-lg uppercase tracking-tight italic">Control de Cookies</h4>
+                <p class="text-slate-500 text-xs leading-relaxed">
+                    Utilizamos cookies para optimizar tu navegación. Al aceptar, consientes el uso de herramientas analíticas. Consulta nuestra 
+                    <button onclick="showView('cookies')" class="text-red-600 font-black hover:underline underline-offset-4">Política de Cookies</button>.
                 </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <a href="#menu" className="bg-red-600 text-white px-10 py-4 rounded-xl font-black text-lg hover:bg-red-500 transition-all shadow-xl hover:-translate-y-1">VER MENÚ</a>
-                  <a href="#info" className="bg-white text-red-700 px-10 py-4 rounded-xl font-black text-lg hover:bg-gray-100 transition-all shadow-xl hover:-translate-y-1">CÓMO LLEGAR</a>
+                <div class="flex gap-3">
+                    <button onclick="acceptCookies()" class="flex-1 bg-slate-900 text-white font-black py-3 rounded-2xl hover:bg-red-700 transition-all text-xs uppercase tracking-widest">Aceptar</button>
+                    <button onclick="acceptCookies()" class="flex-1 bg-slate-100 text-slate-500 font-black py-3 rounded-2xl hover:bg-slate-200 transition-all text-xs uppercase tracking-widest">Cerrar</button>
                 </div>
-              </div>
-            </section>
-
-            {/* FEATURES */}
-            <div className="bg-white border-b">
-              <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                  <div className="flex flex-col items-center text-center group">
-                    <div className="bg-red-50 p-4 rounded-2xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                      <Banknote size={32} />
-                    </div>
-                    <h4 className="font-black uppercase text-sm">Solo Efectivo</h4>
-                    <p className="text-xs text-gray-500 mt-1">Cash Only</p>
-                  </div>
-                  <div className="flex flex-col items-center text-center group">
-                    <div className="bg-red-50 p-4 rounded-2xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                      <ShoppingBag size={32} />
-                    </div>
-                    <h4 className="font-black uppercase text-sm">Para Llevar</h4>
-                    <p className="text-xs text-gray-500 mt-1">Take Away</p>
-                  </div>
-                  <div className="flex flex-col items-center text-center group">
-                    <div className="bg-red-50 p-4 rounded-2xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                      <Clock size={32} />
-                    </div>
-                    <h4 className="font-black uppercase text-sm">Abierto Diario</h4>
-                    <p className="text-xs text-gray-500 mt-1">Hasta medianoche</p>
-                  </div>
-                  <div className="flex flex-col items-center text-center group">
-                    <div className="bg-red-50 p-4 rounded-2xl mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                      <Star size={32} />
-                    </div>
-                    <h4 className="font-black uppercase text-sm">4.6 Estrellas</h4>
-                    <p className="text-xs text-gray-500 mt-1">Google Reviews</p>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            {/* MENÚ */}
-            <section id="menu" className="py-24 bg-gray-50">
-              <div className="max-w-6xl mx-auto px-4">
-                <div className="text-center mb-20">
-                  <h2 className="text-5xl font-black text-gray-900 mb-4">NUESTRA CARTA</h2>
-                  <div className="w-24 h-2 bg-red-600 mx-auto rounded-full"></div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  {menuItems.map((item, i) => (
-                    <div key={i} className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-2xl font-black text-gray-800 group-hover:text-red-600 transition-colors">{item.name}</h3>
-                        <span className="bg-yellow-100 text-red-800 font-black px-3 py-1 rounded-lg">{item.price}</span>
-                      </div>
-                      <p className="text-gray-500 leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* UBICACIÓN */}
-            <section id="info" className="py-24 bg-white">
-              <div className="max-w-7xl mx-auto px-4">
-                <div className="bg-gray-900 rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
-                  <div className="lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
-                    <h2 className="text-4xl font-black mb-8">VISÍTANOS</h2>
-                    <div className="space-y-8">
-                      <div className="flex gap-6">
-                        <MapPin className="text-yellow-400 shrink-0" size={32} />
-                        <div>
-                          <p className="font-bold text-xl">Dirección</p>
-                          <p className="text-gray-400">7500 W North Ave, Elmwood Park, IL 60707</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-6">
-                        <Clock className="text-yellow-400 shrink-0" size={32} />
-                        <div>
-                          <p className="font-bold text-xl">Horario</p>
-                          <p className="text-gray-400">Lunes a Domingo: 10:00 AM - 12:00 AM</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-6">
-                        <Phone className="text-yellow-400 shrink-0" size={32} />
-                        <div>
-                          <p className="font-bold text-xl">Teléfono</p>
-                          <p className="text-gray-400">+1 708-452-6000</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="lg:w-1/2 h-[400px] lg:h-auto bg-gray-800 relative group overflow-hidden">
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                      <MapPin size={64} className="text-red-500 mb-4 animate-pulse" />
-                      <p className="text-white font-black text-2xl mb-2">GOOGLE MAPS</p>
-                      <p className="text-gray-400 text-sm mb-6">Elmwood Park Business District</p>
-                      <button className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-yellow-400 transition-colors">ABRIR MAPA</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </>
-        )}
-
-        {/* VISTAS LEGALES DINÁMICAS */}
-        {currentView === 'aviso-legal' && <AvisoLegal />}
-        {currentView === 'privacidad' && <PoliticaPrivacidad />}
-        {currentView === 'cookies' && <PoliticaCookies />}
-      </main>
-
-      {/* FOOTER */}
-      <footer className="bg-gray-950 text-gray-500 py-16 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div>
-              <h3 className="text-white text-2xl font-black mb-6">JOHNNIE'S</h3>
-              <p className="text-sm leading-relaxed">El clásico stand de Italian Beef de Chicago, manteniendo la tradición viva desde hace décadas en el corazón de Elmwood Park.</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-sm">Navegación</h4>
-              <ul className="space-y-3 text-sm">
-                <li><button onClick={() => navigateTo('home')} className="hover:text-white transition-colors">Inicio</button></li>
-                <li><a href="#menu" className="hover:text-white transition-colors">Nuestra Carta</a></li>
-                <li><a href="https://facebook.com" className="hover:text-white transition-colors">Facebook</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-sm">Legal</h4>
-              <ul className="space-y-3 text-sm">
-                <li><button onClick={() => navigateTo('aviso-legal')} className="hover:text-white transition-colors">Aviso Legal</button></li>
-                <li><button onClick={() => navigateTo('privacidad')} className="hover:text-white transition-colors">Privacidad</button></li>
-                <li><button onClick={() => navigateTo('cookies')} className="hover:text-white transition-colors">Cookies</button></li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-white/5 text-xs text-center uppercase tracking-widest">
-            © {new Date().getFullYear()} Johnnie's Beef. All Rights Reserved.
-          </div>
         </div>
-      </footer>
-
-      {/* BANNER DE COOKIES (PRIMERA CAPA) */}
-      {showCookieBanner && (
-        <div className="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md bg-white border border-gray-200 p-6 rounded-[2rem] shadow-2xl z-[60] animate-fade-in-up">
-          <div className="flex items-start gap-4">
-            <div className="bg-yellow-100 p-3 rounded-2xl text-yellow-600 shrink-0">
-              <Cookie size={24} />
-            </div>
-            <div>
-              <h4 className="font-black text-gray-900 mb-2">Aviso de Cookies</h4>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                Utilizamos cookies para analizar tu navegación y mejorar tu experiencia. Al continuar, aceptas nuestra <button onClick={() => navigateTo('cookies')} className="text-red-600 font-bold hover:underline">política de cookies</button>.
-              </p>
-              <div className="flex gap-3">
-                <button 
-                  onClick={handleAcceptCookies}
-                  className="flex-1 bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors text-sm"
-                >
-                  ENTENDIDO
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ESTILOS GLOBALES */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        .animate-fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { bg: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #b91c1c; }
-      `}} />
     </div>
-  );
-}
+
+    <!-- SCRIPTS -->
+    <script>
+        // Gestión de Vistas (SPA)
+        function showView(viewId) {
+            // Ocultar todas las vistas
+            document.querySelectorAll('#view-home, .legal-view').forEach(view => {
+                view.classList.remove('active-view');
+                view.style.display = 'none';
+            });
+            
+            // Mostrar la seleccionada
+            const selected = document.getElementById('view-' + viewId);
+            selected.style.display = 'block';
+            
+            // Scroll a top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Menú Móvil
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            menu.classList.add('hidden');
+        }
+
+        // Gestión de Cookies
+        function acceptCookies() {
+            localStorage.setItem('cookies_accepted', 'true');
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+
+        window.onload = () => {
+            if (!localStorage.getItem('cookies_accepted')) {
+                setTimeout(() => {
+                    document.getElementById('cookie-banner').classList.remove('hidden');
+                }, 2000);
+            }
+        };
+
+        // Smooth scroll para anclas en Home
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (document.getElementById('view-home').style.display !== 'none') {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
