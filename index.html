@@ -3,327 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Johnnie's Beef | Official Site</title>
-    <!-- Tailwind CSS para diseño profesional -->
+    <title>Johnnie's Beef | El Auténtico Sabor</title>
+    <!-- Tailwind CSS para el diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Iconos -->
+    <!-- Font Awesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        'jb-red': '#D32F2F',
+                        'jb-yellow': '#FBC02D',
+                        'jb-dark': '#212121',
+                        'jb-light': '#F5F5F5'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap');
-        
-        :root {
-            --brand-red: #cc0000;
-            --brand-yellow: #ffcc00;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-
-        h1, h2, h3, .font-brand {
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-        }
-
+        /* Estilos personalizados adicionales */
         .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1594212623340-e260c6d9bb7a?auto=format&fit=crop&q=80') center/cover;
         }
-
-        .view-section { display: none; }
-        .view-section.active { display: block; }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.05);
+        .page-section {
+            min-height: calc(100vh - 300px);
         }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Ocultar barra de scroll pero mantener funcionalidad */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .animate-up { animation: fadeInUp 0.6s ease-out forwards; }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D32F2F; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b71c1c; 
+        }
     </style>
 </head>
-<body class="antialiased text-slate-900">
+<body class="bg-jb-light text-jb-dark font-sans flex flex-col min-h-screen">
 
-    <!-- BARRA DE NAVEGACIÓN -->
-    <nav class="fixed w-full z-50 bg-red-700 text-white shadow-xl">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-20">
-                <div class="cursor-pointer" onclick="navigateTo('home')">
-                    <span class="text-2xl md:text-3xl font-brand italic tracking-tighter">
-                        JOHNNIE'S <span class="text-yellow-400">BEEF</span>
-                    </span>
+    <!-- Navegación -->
+    <nav class="bg-jb-red text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center cursor-pointer" onclick="showPage('home')">
+                    <span class="font-heading font-bold text-3xl tracking-wider text-jb-yellow drop-shadow-sm">JOHNNIE'S BEEF</span>
                 </div>
-                
-                <div class="hidden md:flex space-x-8 font-bold text-xs tracking-widest uppercase">
-                    <a href="#home" onclick="navigateTo('home')" class="hover:text-yellow-400 transition-colors">Inicio</a>
-                    <a href="#menu" onclick="navigateTo('home')" class="hover:text-yellow-400 transition-colors">Carta</a>
-                    <a href="#info" onclick="navigateTo('home')" class="hover:text-yellow-400 transition-colors">Contacto</a>
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-8 font-heading text-lg">
+                    <a href="#" onclick="showPage('home')" class="hover:text-jb-yellow transition-colors">Inicio</a>
+                    <a href="#carta" onclick="showPage('home')" class="hover:text-jb-yellow transition-colors">Carta</a>
+                    <a href="#info" onclick="showPage('home')" class="hover:text-jb-yellow transition-colors">Información</a>
+                    <a href="https://facebook.com" target="_blank" class="bg-jb-yellow text-jb-dark px-4 py-2 rounded font-bold hover:bg-white transition-colors">
+                        <i class="fa-brands fa-facebook mr-2"></i>Síguenos
+                    </a>
                 </div>
-
-                <button id="nav-toggle" class="md:hidden text-yellow-400 text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <!-- Botón Menú Móvil -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white hover:text-jb-yellow focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <!-- Menú Móvil -->
-        <div id="mobile-nav" class="hidden md:hidden bg-red-800 p-6 space-y-4 border-t border-red-600">
-            <a href="#home" onclick="closeNav(); navigateTo('home')" class="block font-bold">INICIO</a>
-            <a href="#menu" onclick="closeNav(); navigateTo('home')" class="block font-bold">CARTA</a>
-            <a href="#info" onclick="closeNav(); navigateTo('home')" class="block font-bold">UBICACIÓN</a>
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden bg-red-800 pb-4">
+            <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="block px-4 py-3 text-white hover:bg-red-700 font-heading text-lg">Inicio</a>
+            <a href="#carta" onclick="showPage('home'); toggleMobileMenu()" class="block px-4 py-3 text-white hover:bg-red-700 font-heading text-lg">Carta</a>
+            <a href="#info" onclick="showPage('home'); toggleMobileMenu()" class="block px-4 py-3 text-white hover:bg-red-700 font-heading text-lg">Información</a>
         </div>
     </nav>
 
-    <!-- SECCIÓN PRINCIPAL (HOME) -->
-    <main id="view-home" class="view-section active">
-        <!-- HERO -->
-        <section class="hero-bg min-h-[90vh] flex items-center justify-center text-center px-4 pt-20">
-            <div class="max-w-4xl animate-up">
-                <div class="inline-block bg-yellow-400 text-red-900 px-3 py-1 rounded-full font-black text-[10px] uppercase tracking-[0.2em] mb-6">
-                    Original Chicago Tradition
-                </div>
-                <h1 class="text-5xl md:text-8xl text-white mb-6 leading-none">
-                    SABOR QUE <br><span class="text-yellow-400 italic">MANDA</span>
-                </h1>
-                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-medium">
-                    Elmwood Park's finest Italian Beef & Charcoal Grilled delights since decades.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#menu" class="bg-red-600 text-white px-12 py-5 rounded-full font-brand hover:bg-red-500 transition-all shadow-2xl">MENÚ COMPLETO</a>
-                    <a href="#info" class="bg-white text-red-700 px-12 py-5 rounded-full font-brand hover:bg-gray-100 transition-all shadow-2xl">VISÍTANOS</a>
-                </div>
-            </div>
-        </section>
+    <!-- CONTENEDOR PRINCIPAL DINÁMICO -->
+    <div id="content-container" class="flex-grow">
 
-        <!-- INFO RÁPIDA -->
-        <section class="py-12 bg-white border-b overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center group">
-                    <div class="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                        <i class="fas fa-coins text-xl"></i>
+        <!-- ================= INICIO (HOME) ================= -->
+        <main id="home-view" class="page-section block">
+            
+            <!-- Hero Section -->
+            <section class="hero-bg h-[60vh] flex items-center justify-center text-center px-4">
+                <div class="max-w-3xl">
+                    <div class="flex items-center justify-center space-x-2 text-jb-yellow mb-4 text-xl">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-white text-lg font-medium ml-2">4,6 (5.882 reseñas)</span>
                     </div>
-                    <p class="font-brand text-xs">SOLO EFECTIVO</p>
-                </div>
-                <div class="text-center group">
-                    <div class="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                        <i class="fas fa-walking text-xl"></i>
+                    <h1 class="text-5xl md:text-7xl font-heading font-bold text-white mb-6 uppercase tracking-wide drop-shadow-lg">
+                        El Auténtico <br><span class="text-jb-yellow">Sabor de Chicago</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-200 mb-8 font-light">
+                        Pequeño puesto histórico de comida rápida. Pago solo en efectivo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#carta" class="bg-jb-yellow text-jb-dark font-heading font-bold text-xl px-8 py-4 rounded shadow-lg hover:bg-white transition-all transform hover:scale-105">
+                            Ver la Carta
+                        </a>
+                        <a href="#info" class="bg-white/20 backdrop-blur-sm text-white border-2 border-white font-heading font-bold text-xl px-8 py-4 rounded hover:bg-white hover:text-jb-dark transition-all">
+                            Cómo Llegar
+                        </a>
                     </div>
-                    <p class="font-brand text-xs">PARA LLEVAR</p>
                 </div>
-                <div class="text-center group">
-                    <div class="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                        <i class="fas fa-clock text-xl"></i>
-                    </div>
-                    <p class="font-brand text-xs">HASTA LAS 00:00</p>
-                </div>
-                <div class="text-center group">
-                    <div class="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all">
-                        <i class="fas fa-star text-xl"></i>
-                    </div>
-                    <p class="font-brand text-xs">EL MEJOR BEEF</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- CARTA -->
-        <section id="menu" class="py-24 bg-slate-50">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-6xl font-brand text-slate-900 mb-2">NUESTRA CARTA</h2>
-                    <p class="text-red-600 font-bold uppercase tracking-widest text-sm">Autenticidad en cada capa</p>
-                </div>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Producto -->
-                    <div class="glass-card p-8 rounded-[2rem] hover:scale-[1.02] transition-transform shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-brand text-slate-800">Italian Beef</h3>
-                            <span class="bg-yellow-400 text-red-900 font-black px-3 py-1 rounded-lg text-sm">$8.50</span>
+            <!-- Características Rápidas -->
+            <section class="bg-jb-dark text-white py-8 border-b-4 border-jb-yellow">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-money-bill-wave text-3xl text-jb-yellow mb-2"></i>
+                            <span class="font-bold font-heading text-lg uppercase tracking-wider">Solo Efectivo</span>
                         </div>
-                        <p class="text-slate-500 text-sm leading-relaxed">Finas láminas de ternera asada, servidas en pan italiano con su propio jugo (gravy).</p>
-                    </div>
-                    <!-- Producto -->
-                    <div class="glass-card p-8 rounded-[2rem] hover:scale-[1.02] transition-transform shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-brand text-slate-800">Chicago Hot Dog</h3>
-                            <span class="bg-yellow-400 text-red-900 font-black px-3 py-1 rounded-lg text-sm">$4.50</span>
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-shopping-bag text-3xl text-jb-yellow mb-2"></i>
+                            <span class="font-bold font-heading text-lg uppercase tracking-wider">Para Llevar</span>
+                            <span class="text-sm text-green-400"><i class="fas fa-check mr-1"></i>Disponible</span>
                         </div>
-                        <p class="text-slate-500 text-sm leading-relaxed">Con mostaza, cebolla, relish verde, tomate, pepinillo y pimientos sport.</p>
-                    </div>
-                    <!-- Producto -->
-                    <div class="glass-card p-8 rounded-[2rem] hover:scale-[1.02] transition-transform shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-brand text-slate-800">Combo Beef & Sausage</h3>
-                            <span class="bg-yellow-400 text-red-900 font-black px-3 py-1 rounded-lg text-sm">$9.50</span>
+                        <div class="flex flex-col items-center opacity-70">
+                            <i class="fas fa-motorcycle text-3xl text-gray-400 mb-2"></i>
+                            <span class="font-bold font-heading text-lg uppercase tracking-wider text-gray-400">A Domicilio</span>
+                            <span class="text-sm text-red-400"><i class="fas fa-times mr-1"></i>No disponible</span>
                         </div>
-                        <p class="text-slate-500 text-sm leading-relaxed">El matrimonio perfecto: Italian Beef + Salchicha Italiana a la brasa.</p>
-                    </div>
-                    <!-- Producto -->
-                    <div class="glass-card p-8 rounded-[2rem] hover:scale-[1.02] transition-transform shadow-sm">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-brand text-slate-800">Italian Ice</h3>
-                            <span class="bg-yellow-400 text-red-900 font-black px-3 py-1 rounded-lg text-sm">$3.50</span>
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-wallet text-3xl text-jb-yellow mb-2"></i>
+                            <span class="font-bold font-heading text-lg uppercase tracking-wider">10-20 $</span>
+                            <span class="text-sm text-gray-300">Por persona</span>
                         </div>
-                        <p class="text-slate-500 text-sm leading-relaxed">Postre refrescante artesanal. Disponible en Limón y Sandía.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- UBICACIÓN -->
-        <section id="info" class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="bg-slate-950 rounded-[3rem] overflow-hidden flex flex-col lg:flex-row items-stretch min-h-[500px]">
-                    <div class="lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
-                        <h2 class="text-4xl font-brand mb-10 text-yellow-400">VISÍTANOS</h2>
-                        <div class="space-y-8">
-                            <div class="flex gap-6 items-start">
-                                <i class="fas fa-map-pin text-red-500 text-2xl mt-1"></i>
-                                <div>
-                                    <p class="font-brand text-lg mb-1">LOCALIZACIÓN</p>
-                                    <p class="text-slate-400">7500 W North Ave, Elmwood Park, IL 60707</p>
-                                </div>
+            <!-- Menú / Carta -->
+            <section id="carta" class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-heading font-bold text-jb-dark mb-4 uppercase">Nuestra Carta</h2>
+                        <div class="w-24 h-1 bg-jb-red mx-auto"></div>
+                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">Especialistas en salchichas, carne italiana, helado italiano, papas fritas y batidos clásicos.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        <!-- Item 1 -->
+                        <div class="bg-jb-light rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                            <div class="h-48 bg-gray-300 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1628191139360-4083564d03fd?auto=format&fit=crop&q=80" alt="Italian Beef" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-jb-red text-white font-bold px-3 py-1 rounded-full">$9.50</div>
                             </div>
-                            <div class="flex gap-6 items-start">
-                                <i class="fas fa-phone text-red-500 text-2xl mt-1"></i>
-                                <div>
-                                    <p class="font-brand text-lg mb-1">TELÉFONO</p>
-                                    <p class="text-slate-400">+1 708-452-6000</p>
-                                </div>
+                            <div class="p-6">
+                                <h3 class="font-heading font-bold text-2xl mb-2 text-jb-dark">Italian Beef Sandwich</h3>
+                                <p class="text-gray-600 mb-4">Finas rebanadas de carne asada sazonada, servidas en pan italiano bañado en su propio jugo. Un clásico de Chicago.</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="lg:w-1/2 bg-slate-900 flex items-center justify-center p-8 border-l border-white/5">
-                        <div class="text-center">
-                            <i class="fas fa-map-marked-alt text-7xl text-red-600 mb-6"></i>
-                            <p class="text-white font-bold mb-6">Google Maps Elmwood Park</p>
-                            <a href="https://maps.google.com" target="_blank" class="bg-white text-black px-8 py-3 rounded-full font-brand text-xs">CÓMO LLEGAR</a>
+
+                        <!-- Item 2 -->
+                        <div class="bg-jb-light rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                            <div class="h-48 bg-gray-300 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&q=80" alt="Hot Dog" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-jb-red text-white font-bold px-3 py-1 rounded-full">$5.00</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-heading font-bold text-2xl mb-2 text-jb-dark">Hot Dog Estilo Chicago</h3>
+                                <p class="text-gray-600 mb-4">Salchicha de pura ternera con mostaza, cebolla picada, relish verde, rodajas de tomate y sal de apio. Sin kétchup.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="bg-jb-light rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                            <div class="h-48 bg-gray-300 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1576506295286-5cda18df43e0?auto=format&fit=crop&q=80" alt="Helado Italiano" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-jb-red text-white font-bold px-3 py-1 rounded-full">$3.50</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-heading font-bold text-2xl mb-2 text-jb-dark">Helado Italiano (Italian Ice)</h3>
+                                <p class="text-gray-600 mb-4">El postre perfecto. Refrescante helado a base de agua con auténtico sabor a limón. Receta tradicional.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="bg-jb-light rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                            <div class="h-48 bg-gray-300 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80" alt="Papas Fritas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-jb-red text-white font-bold px-3 py-1 rounded-full">$3.00</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-heading font-bold text-2xl mb-2 text-jb-dark">Papas Fritas Clásicas</h3>
+                                <p class="text-gray-600 mb-4">Corte grueso, crujientes por fuera y tiernas por dentro. Fritas a la perfección al momento de pedirlas.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="bg-jb-light rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                            <div class="h-48 bg-gray-300 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80" alt="Batidos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-jb-red text-white font-bold px-3 py-1 rounded-full">$4.50</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-heading font-bold text-2xl mb-2 text-jb-dark">Batidos Espesos</h3>
+                                <p class="text-gray-600 mb-4">Preparados con helado real. Sabores clásicos: Vainilla, Chocolate y Fresa. Perfectos para acompañar tu beef.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
 
-    <!-- SECCIONES LEGALES -->
-    <section id="view-legal" class="view-section pt-32 pb-20 px-4 max-w-4xl mx-auto">
-        <h2 id="legal-title" class="text-4xl font-brand text-red-700 mb-8 border-b-4 border-yellow-400 pb-4">TÍTULO LEGAL</h2>
-        <div id="legal-content" class="text-slate-600 leading-relaxed space-y-6">
-            <!-- El contenido se inyecta dinámicamente -->
-        </div>
-        <button onclick="navigateTo('home')" class="mt-12 bg-slate-900 text-white px-8 py-3 rounded-full font-brand text-xs">VOLVER AL INICIO</button>
-    </section>
+            <!-- Información y Ubicación -->
+            <section id="info" class="py-20 bg-jb-light">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+                        <!-- Datos -->
+                        <div class="lg:w-1/2 p-10 flex flex-col justify-center">
+                            <h2 class="text-3xl font-heading font-bold text-jb-dark mb-6 uppercase border-b-2 border-jb-red pb-2 inline-block">Información</h2>
+                            
+                            <ul class="space-y-6 text-lg">
+                                <li class="flex items-start">
+                                    <i class="fas fa-map-marker-alt text-jb-red mt-1 text-xl w-8"></i>
+                                    <div>
+                                        <p class="font-bold">Dirección</p>
+                                        <p class="text-gray-600">7500 W North Ave, Elmwood Park,<br>IL 60707, Estados Unidos</p>
+                                        <p class="text-sm text-gray-500 mt-1">W55P+HM Elmwood Park, Illinois, EE. UU.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-clock text-jb-red mt-1 text-xl w-8"></i>
+                                    <div>
+                                        <p class="font-bold">Horario</p>
+                                        <p class="text-green-600 font-medium">Abierto ahora</p>
+                                        <p class="text-gray-600">Cierra a las 0:00</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-phone-alt text-jb-red mt-1 text-xl w-8"></i>
+                                    <div>
+                                        <p class="font-bold">Teléfono</p>
+                                        <a href="tel:+17084526000" class="text-gray-600 hover:text-jb-red transition">+1 708-452-6000</a>
+                                    </div>
+                                </li>
+                            </ul>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 text-slate-500 py-20 px-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-16">
-                <div>
-                    <h3 class="text-white font-brand text-2xl mb-6 italic">JOHNNIE'S</h3>
-                    <p class="text-sm leading-relaxed">Auténtica comida callejera de Chicago. Sin pretensiones, solo calidad suprema en cada bocado.</p>
+                            <div class="mt-8 flex flex-wrap gap-4">
+                                <a href="https://maps.google.com/?q=7500+W+North+Ave,+Elmwood+Park,+IL+60707" target="_blank" class="bg-jb-red text-white px-6 py-3 rounded font-bold hover:bg-red-700 transition flex items-center">
+                                    <i class="fas fa-directions mr-2"></i> Cómo llegar
+                                </a>
+                                <button class="bg-gray-200 text-gray-800 px-6 py-3 rounded font-bold hover:bg-gray-300 transition flex items-center" onclick="alert('Enlace guardado en el portapapeles.')">
+                                    <i class="fas fa-share-alt mr-2"></i> Compartir
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Mapa Placeholder (Imagen estática para evitar iframes pesados) -->
+                        <div class="lg:w-1/2 min-h-[400px] bg-gray-200 relative">
+                            <!-- Mapa simulado con imagen de Unsplash para contexto urbano -->
+                            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80" alt="Ubicación en Mapa" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                <div class="bg-white p-4 rounded-lg shadow-lg text-center transform hover:scale-105 transition">
+                                    <i class="fas fa-map-pin text-4xl text-jb-red mb-2"></i>
+                                    <h3 class="font-bold font-heading text-xl">Johnnie's Beef</h3>
+                                    <p class="text-sm text-gray-600">Elmwood Park, IL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        </main>
+
+        <!-- ================= AVISO LEGAL ================= -->
+        <main id="legal-view" class="page-section hidden py-16 px-4 bg-white">
+            <div class="max-w-4xl mx-auto prose prose-red">
+                <h1 class="text-4xl font-heading font-bold text-jb-dark mb-8 border-b border-gray-200 pb-4">Aviso Legal</h1>
+                
+                <h2 class="text-2xl font-bold mt-8 mb-4">1. Datos Identificativos</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es <strong>Johnnie's Beef MGT</strong> (en adelante, Johnnie's Beef), con domicilio a estos efectos en 7500 W North Ave, Elmwood Park, IL 60707, Estados Unidos. Correo electrónico de contacto: contacto@johnniesbeef-example.com del sitio web. Teléfono de contacto: +1 708-452-6000.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">2. Usuarios</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">El acceso y/o uso de este portal de Johnnie's Beef atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas. Las citadas Condiciones serán de aplicación independientemente de las Condiciones Generales de Contratación que en su caso resulten de obligado cumplimiento.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">3. Uso del Portal</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Nuestra web proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a Johnnie's Beef o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal. El USUARIO se compromete a hacer un uso adecuado de los contenidos y servicios que Johnnie's Beef ofrece a través de su portal.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">4. Propiedad Intelectual e Industrial</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Johnnie's Beef por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, etc.), titularidad de Johnnie's Beef o bien de sus licenciantes. Todos los derechos reservados.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">5. Exclusión de Garantías y Responsabilidad</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Johnnie's Beef no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
+            </div>
+        </main>
+
+        <!-- ================= POLÍTICA DE PRIVACIDAD ================= -->
+        <main id="privacidad-view" class="page-section hidden py-16 px-4 bg-white">
+            <div class="max-w-4xl mx-auto prose prose-red">
+                <h1 class="text-4xl font-heading font-bold text-jb-dark mb-8 border-b border-gray-200 pb-4">Política de Privacidad</h1>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">1. Información al usuario</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed"><strong>Johnnie's Beef</strong>, como Responsable del Tratamiento, le informa que, según lo dispuesto en el Reglamento (UE) 2016/679, de 27 de abril, (RGPD) y en la L.O. 3/2018, de 5 de diciembre, de protección de datos y garantía de los derechos digitales (LOPDGDD), trataremos sus datos tal y como reflejamos en la presente Política de Privacidad.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">2. Finalidad del tratamiento</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Mantenemos sus datos para el cumplimiento de las siguientes finalidades:</p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+                    <li>Atender las consultas planteadas a través de los formularios de contacto u otros medios de comunicación disponibles.</li>
+                    <li>Gestión administrativa, contable y fiscal relacionada con los servicios ofrecidos en nuestro establecimiento (pedidos para llevar).</li>
+                    <li>Envío de comunicaciones comerciales y promocionales, siempre que el usuario haya prestado su consentimiento expreso.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">3. Criterios de conservación de los datos</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Se conservarán durante no más tiempo del necesario para mantener el fin del tratamiento, o existan prescripciones legales que dictaminen su custodia y cuando ya no sea necesario para ello, se suprimirán con medidas de seguridad adecuadas para garantizar la anonimización de los datos o la destrucción total de los mismos.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">4. Comunicación de los datos</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">No se comunicarán los datos a terceros, salvo obligación legal. No obstante, para prestarle un mejor servicio, es posible que trabajemos con proveedores de servicios (alojamiento web, etc.) que pueden tener acceso a datos personales en su calidad de Encargados del Tratamiento.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">5. Derechos que asisten al Usuario</h2>
+                <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+                    <li>Derecho a retirar el consentimiento en cualquier momento.</li>
+                    <li>Derecho de acceso, rectificación, portabilidad y supresión de sus datos y a la limitación u oposición a su tratamiento.</li>
+                    <li>Derecho a presentar una reclamación ante la autoridad de control si considera que el tratamiento no se ajusta a la normativa vigente.</li>
+                </ul>
+                <p class="mb-4 text-gray-700 leading-relaxed">Datos de contacto para ejercer sus derechos: 7500 W North Ave, Elmwood Park, IL 60707.</p>
+            </div>
+        </main>
+
+        <!-- ================= POLÍTICA DE COOKIES ================= -->
+        <main id="cookies-view" class="page-section hidden py-16 px-4 bg-white">
+            <div class="max-w-4xl mx-auto prose prose-red">
+                <h1 class="text-4xl font-heading font-bold text-jb-dark mb-8 border-b border-gray-200 pb-4">Política de Cookies</h1>
+
+                <p class="mb-4 text-gray-700 leading-relaxed">El dominio web de <strong>Johnnie's Beef</strong> utiliza procedimientos automáticos de recogida (Cookies) para reunir información personal como puede ser el tipo de navegador o sistema operativo, página de referencia, ruta, dominio ISSP (Proveedor de Internet), etc. todo ello con el fin de mejorar los servicios prestados.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">1. ¿Qué son las Cookies?</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Una "Cookie" es un pequeño archivo que se almacena en el ordenador del usuario y nos permite reconocerle. El conjunto de "cookies" nos ayuda a mejorar la calidad de nuestra web, permitiéndonos controlar qué páginas encuentran nuestros usuarios útiles y cuáles no.</p>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">2. ¿Qué tipos de cookies utilizamos?</h2>
+                <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+                    <li><strong>Cookies Técnicas:</strong> Son aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan.</li>
+                    <li><strong>Cookies de Personalización:</strong> Son aquellas que permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario (ej. idioma).</li>
+                    <li><strong>Cookies de Análisis:</strong> Son aquellas que permiten al responsable de las mismas, el seguimiento y análisis del comportamiento de los usuarios de los sitios web a los que están vinculadas.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mt-8 mb-4">3. Gestión y desactivación de cookies</h2>
+                <p class="mb-4 text-gray-700 leading-relaxed">Puede usted permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
+                <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+                    <li><strong>Chrome:</strong> Configuración -> Mostrar opciones avanzadas -> Privacidad -> Configuración de contenido.</li>
+                    <li><strong>Firefox:</strong> Herramientas -> Opciones -> Privacidad -> Historial -> Configuración Personalizada.</li>
+                    <li><strong>Safari:</strong> Preferencias -> Seguridad.</li>
+                </ul>
+                <p class="mb-4 text-gray-700 leading-relaxed">Si tiene dudas sobre esta política de cookies, puede contactar con nosotros en nuestro establecimiento físico.</p>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-jb-dark text-gray-300 py-12 border-t-4 border-jb-red mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Marca -->
                 <div>
-                    <h4 class="text-white font-bold mb-6 text-xs tracking-widest uppercase">Empresa</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#home" onclick="navigateTo('home')" class="hover:text-white transition-colors">Inicio</a></li>
-                        <li><a href="#menu" onclick="navigateTo('home')" class="hover:text-white transition-colors">Nuestro Menú</a></li>
-                        <li><a href="https://facebook.com" target="_blank" class="hover:text-white transition-colors">Facebook</a></li>
+                    <h3 class="font-heading font-bold text-2xl text-white mb-4">JOHNNIE'S BEEF</h3>
+                    <p class="mb-4 text-sm text-gray-400">Pequeño puesto, con pago solo en efectivo, de hotdogs donde se sirven salchichas, carne, helado italiano, papas fritas y batidos.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com" target="_blank" class="text-gray-400 hover:text-white transition text-xl">
+                            <i class="fa-brands fa-facebook-square"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-xl">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase tracking-wider">Enlaces Legales</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" onclick="showPage('legal'); return false;" class="hover:text-jb-yellow transition">Aviso Legal</a></li>
+                        <li><a href="#" onclick="showPage('privacidad'); return false;" class="hover:text-jb-yellow transition">Política de Privacidad</a></li>
+                        <li><a href="#" onclick="showPage('cookies'); return false;" class="hover:text-jb-yellow transition">Política de Cookies</a></li>
                     </ul>
                 </div>
+
+                <!-- Contacto -->
                 <div>
-                    <h4 class="text-white font-bold mb-6 text-xs tracking-widest uppercase">Legal</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><button onclick="showLegal('aviso')" class="hover:text-white transition-colors">Aviso Legal</button></li>
-                        <li><button onclick="showLegal('privacidad')" class="hover:text-white transition-colors">Privacidad</button></li>
-                        <li><button onclick="showLegal('cookies')" class="hover:text-white transition-colors">Cookies</button></li>
+                    <h4 class="font-bold text-white mb-4 uppercase tracking-wider">Contacto</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><i class="fas fa-map-marker-alt w-5 text-jb-red"></i> 7500 W North Ave, Elmwood Park, IL 60707</li>
+                        <li><i class="fas fa-phone w-5 text-jb-red"></i> +1 708-452-6000</li>
+                        <li><i class="fas fa-clock w-5 text-jb-red"></i> Abierto hasta las 0:00</li>
                     </ul>
                 </div>
             </div>
-            <div class="pt-8 border-t border-white/5 text-center text-[10px] tracking-widest uppercase font-bold">
-                © 2026 Johnnie's Beef. Built for fans of flavor.
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2026 Johnnie's Beef. Todos los derechos reservados.</p>
+                <p class="mt-2 md:mt-0">Calificación de 4,6 <i class="fas fa-star text-jb-yellow text-xs"></i> basada en 5.882 reseñas.</p>
             </div>
         </div>
     </footer>
 
-    <!-- BANNER COOKIES (1ª CAPA) -->
-    <div id="cookie-banner" class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] md:w-auto md:min-w-[450px] bg-white border border-slate-200 p-8 rounded-[2.5rem] shadow-2xl z-[100] hidden">
-        <div class="flex items-start gap-6">
-            <div class="bg-yellow-100 p-4 rounded-3xl text-yellow-600 shrink-0">
-                <i class="fas fa-cookie-bite text-3xl"></i>
+    <!-- Banner de Cookies (Simulado) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 p-4 border-t-4 border-jb-red transform translate-y-0 transition-transform duration-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-700">
+                Utilizamos cookies propias y de terceros para mejorar nuestros servicios. Si continúa navegando, consideramos que acepta su uso. Puede obtener más información en nuestra <a href="#" onclick="showPage('cookies'); return false;" class="text-jb-red font-bold hover:underline">Política de Cookies</a>.
             </div>
-            <div>
-                <h4 class="font-brand text-lg text-slate-900 mb-2">Cookies & Privacidad</h4>
-                <p class="text-slate-500 text-xs leading-relaxed mb-6">
-                    Usamos cookies propias y de terceros para mejorar tu experiencia. Al hacer clic en aceptar, consientes su uso. Puedes leer más en nuestra 
-                    <button onclick="showLegal('cookies')" class="text-red-600 font-bold underline">Política de Cookies</button>.
-                </p>
-                <div class="flex gap-3">
-                    <button onclick="closeCookies()" class="flex-1 bg-slate-900 text-white font-bold py-3 rounded-2xl text-xs uppercase tracking-widest hover:bg-red-700 transition-colors">Aceptar todo</button>
-                    <button onclick="closeCookies()" class="flex-1 bg-slate-100 text-slate-500 font-bold py-3 rounded-2xl text-xs uppercase tracking-widest">Rechazar</button>
-                </div>
+            <div class="flex gap-2 whitespace-nowrap">
+                <button onclick="acceptCookies()" class="bg-jb-red text-white px-6 py-2 rounded font-bold hover:bg-red-700 transition">Aceptar</button>
             </div>
         </div>
     </div>
 
-    <!-- LÓGICA DE CONTROL -->
+    <!-- Script de control de navegación SPA -->
     <script>
-        // Navegación entre secciones
-        function navigateTo(viewId) {
-            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
+        // Función para cambiar de vista (Home, Legal, Privacidad, Cookies)
+        function showPage(pageId) {
+            // Ocultar todas las secciones
+            const sections = ['home-view', 'legal-view', 'privacidad-view', 'cookies-view'];
+            sections.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                document.getElementById(id).classList.remove('block');
+            });
 
-        // Mostrar contenido legal
-        function showLegal(type) {
-            const title = document.getElementById('legal-title');
-            const content = document.getElementById('legal-content');
+            // Mostrar la sección solicitada
+            const targetId = pageId + '-view';
+            const targetElement = document.getElementById(targetId);
             
-            const legalData = {
-                aviso: {
-                    t: "Aviso Legal",
-                    c: "<p>Este sitio web es propiedad de Johnnie's Beef, con sede en Elmwood Park, Illinois. El contenido es informativo sobre nuestros productos y servicios físicos.</p><p>El acceso a esta web implica la aceptación de las condiciones de uso y la normativa vigente de protección al consumidor.</p>"
-                },
-                privacidad: {
-                    t: "Política de Privacidad",
-                    c: "<p>Johnnie's Beef respeta tu privacidad. No recolectamos datos de identificación personal sin tu consentimiento. Los datos obtenidos mediante la navegación se utilizan exclusivamente para fines estadísticos anónimos.</p><p>No vendemos ni compartimos información con terceros con fines comerciales.</p>"
-                },
-                cookies: {
-                    t: "Política de Cookies",
-                    c: "<p>Utilizamos cookies técnicas necesarias para el funcionamiento del sitio y cookies analíticas para mejorar la navegación.</p><p>Puedes configurar tu navegador para bloquear o alertar sobre estas cookies, pero algunas partes del sitio podrían no funcionar.</p>"
-                }
-            };
-
-            title.innerText = legalData[type].t;
-            content.innerHTML = legalData[type].c;
-            navigateTo('legal');
-        }
-
-        // Menú Móvil
-        const navToggle = document.getElementById('nav-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
-        navToggle.onclick = () => mobileNav.classList.toggle('hidden');
-        function closeNav() { mobileNav.classList.add('hidden'); }
-
-        // Cookies
-        function closeCookies() {
-            localStorage.setItem('cookies_accepted', 'true');
-            document.getElementById('cookie-banner').classList.add('hidden');
-        }
-
-        window.onload = () => {
-            if (!localStorage.getItem('cookies_accepted')) {
-                setTimeout(() => {
-                    document.getElementById('cookie-banner').classList.remove('hidden');
-                }, 1500);
+            if (targetElement) {
+                targetElement.classList.remove('hidden');
+                targetElement.classList.add('block');
             }
-        };
+
+            // Hacer scroll hacia arriba suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Control del menú móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+
+        // Control del banner de cookies
+        function acceptCookies() {
+            const banner = document.getElementById('cookie-banner');
+            banner.style.transform = 'translateY(100%)';
+            setTimeout(() => { banner.style.display = 'none'; }, 500);
+            // En un caso real aquí se guardaría en localStorage: localStorage.setItem('cookiesAccepted', 'true');
+        }
+
+        // Simulación básica de check de cookies en LocalStorage
+        /*
+        if(localStorage.getItem('cookiesAccepted')) {
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        */
     </script>
 </body>
 </html>
